@@ -1,0 +1,8 @@
+{
+	"manifest_version": 1,
+	"name": "markdown-calc",
+	"description": "Plugin for automatic calculations of markdown table formulas.",
+	"version": "1.0.0",
+	"author": "Oskar Świda",
+	"homepage_url": ""
+}
