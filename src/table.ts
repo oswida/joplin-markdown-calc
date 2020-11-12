@@ -32,7 +32,6 @@ export class MTRow {
 
   parse(data: string, line: number) {
     const parts = data.split(CELL_DELIMITER);
-    // TODO: check the exact standard of Markdown table used in Joplin
     for (let i = 1; i < parts.length - 1; i++) {
       let cvalue = parts[i];
       let frm = null;
@@ -58,6 +57,7 @@ export class MTRow {
     }
   }
 
+  // Serialize to markdown text.
   serialize() {
     const values = this.cells.map((it) => {
       if (it.formula && it.formulaPrefix) {
@@ -102,7 +102,6 @@ export class MTTable {
         if (parts && parts.length == 2) {
           const cell = this.findCell(parts[0]);
           if (cell) {
-            alert("Updating cell with formula " + parts[1]);
             cell.formula = parts[1];
             cell.formulaPrefix = null;
           }
@@ -111,18 +110,16 @@ export class MTTable {
     }
   }
 
+  // Find cell with a given label.
   findCell(id: string): MTCell | null {
     const coords = extractLabel(id) as Coordinate[];
     const rowidx = coords[0].index;
     const colidx = coords[1].index;
-    alert(rowidx + ":" + colidx);
     if ((rowidx as number) >= this.rows.length) {
-      alert("bad row!");
       return null;
     }
     const row = this.rows[rowidx];
     if ((colidx as number) >= row.cells.length) {
-      alert("Bad column!");
       return null;
     }
     return row.cells[colidx];
@@ -140,6 +137,7 @@ export class MTTable {
     return this.rows[row].cells[column].value;
   }
 
+  // Update text lines with a calculated data.
   update(data: string[]) {
     for (let i = 0; i < this.rows.length; i++) {
       data[this.startLine + i] = this.rows[i].serialize();

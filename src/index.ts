@@ -14,7 +14,6 @@ joplin.plugins.register({
       }
       const md = new MarkdownIt({ html: true });
       const data = md.parse(note.body, null);
-      // TODO: check EOL for different OSes?
       const body_lines = (note.body as string).split("\n");
       const calc = new TableCalculator();
       for (let i = 0; i < data.length; i++) {
@@ -28,9 +27,12 @@ joplin.plugins.register({
       // Execute calculations
       calc.execute(body_lines);
       // TODO: have a problem with selecting the whole text
-      await joplin.commands.execute("textSelectAll");
+      // await joplin.commands.execute("textSelectAll");
+      await joplin.data.put(["notes", note.id], null, {
+        body: body_lines.join("\n"),
+      });
       // TODO: should work assuming I'll be able to run the command above
-      await joplin.commands.execute("replaceSelection", body_lines.join("\n"));
+      // await joplin.commands.execute("replaceSelection", body_lines.join("\n"));
     }
 
     // Register new command

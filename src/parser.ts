@@ -7,6 +7,7 @@ interface CalcResult {
   error: any;
 }
 
+// Formula parser wrapper.
 export class TableParser {
   parser: typeof FormulaParser;
   table: MTTable;
