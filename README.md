@@ -22,7 +22,7 @@ You can use **TBLFM** or **TABLE_FORMULAS** strings to indicate formula list.
 | 0        | 0        | 0        |
 <!--TBLFM C2=A1+A2; C1=56*78/4 -->
 ```
-The comment can span multiple lines and contain multiple formulas separated by a semicolon. Formulas are calculated in the order they are written. Table cells are described using spreadsheet notation, columns designated with letters like A,B,C .. Z (and even more AA, AB etc.) and rows with integers 1,2,3 ... You can also use range notation like A1:E23. Moreover, `hot-formula-parser` contains also a big set of predefined functions which can be used in formulas. The list of these functions (taken by SUPPORTED_FORMULAS function) looks like this
+The comment can span multiple lines and contain multiple formulas separated by a semicolon. Formulas are calculated in the following order:  first row then all its columns fron the left to the right, second row ... etc. Table cells are described using spreadsheet notation, columns designated with letters like A,B,C .. Z (and even more AA, AB etc.) and rows with integers 1,2,3 ... You can also use range notation like `A1:E23`. Moreover, `hot-formula-parser` contains also a big set of predefined functions which can be used in formulas. The list of these functions (taken by SUPPORTED_FORMULAS function) looks like this (however, I didn't check all of them)
 
 ```
 - ABS,ACCRINT,ACOS,ACOSH,ACOT,ACOTH,ADD,AGGREGATE,AND,ARABIC,ARGS2ARRAY,ASIN,ASINH,ATAN,ATAN2,ATANH,AVEDEV,AVERAGE,AVERAGEA,AVERAGEIF,AVERAGEIFS,
@@ -67,8 +67,9 @@ There is also a possibility to define formulas directly inside the cell. To do s
 ## Plugin command
 The plugin registers `markdownCalculate` command and adds it to the editor toolbar (the `fa-square-root-alt` icon).
 
-## Not finished yet!
-This plugin is in very early stage, the main thing not resolved is updating the note text with the computed values. Because I was unable to run `textSelectAll` command from plugin, I'm adding the new note text just at the cursor position. 
+## Notes
+WARNING! WYSIWYG editor removes HTML comments, so you will loose formula definitions.
+WARNING 2! Table values are updated using internal `editor.setText` command, so you will be unable to undo changes.
 
 ## Building the plugin
 

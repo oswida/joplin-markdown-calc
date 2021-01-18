@@ -94,6 +94,7 @@ export class MTTable {
   // Parse formulas taken from a comment below the table.
   // WARNING: formula list definitions override inline cell formulas!
   parseList(comment: string) {
+    FORMULA_LIST_REGEXP.lastIndex = 0; // reset regex before reuse
     const rx = FORMULA_LIST_REGEXP.exec(comment);
     if (rx && rx.length == 3) {
       const flist = rx[2].split(FORMULA_SEP);

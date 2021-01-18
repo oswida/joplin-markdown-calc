@@ -1,4 +1,4 @@
-import { MTTable } from "./table";
+import { MTTable } from "../lib/table";
 
 const SAMPLE = `|A|B|C|
 |--|--|--|

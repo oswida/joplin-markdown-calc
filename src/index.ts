@@ -1,7 +1,7 @@
 import joplin from "api";
 import { ToolbarButtonLocation } from "api/types";
 import MarkdownIt = require("markdown-it");
-import { TableCalculator } from "./calc";
+import { TableCalculator } from "./lib/calc";
 
 // Register plugin
 joplin.plugins.register({
@@ -26,13 +26,9 @@ joplin.plugins.register({
       }
       // Execute calculations
       calc.execute(body_lines);
-      // TODO: have a problem with selecting the whole text
-      // await joplin.commands.execute("textSelectAll");
-      await joplin.data.put(["notes", note.id], null, {
-        body: body_lines.join("\n"),
-      });
-      // TODO: should work assuming I'll be able to run the command above
-      // await joplin.commands.execute("replaceSelection", body_lines.join("\n"));
+      // update note body
+      await joplin.commands.execute("textSelectAll");
+      await joplin.commands.execute("editor.setText", body_lines.join("\n"));
     }
 
     // Register new command
