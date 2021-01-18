@@ -17,7 +17,8 @@ export class TableParser {
     const self = this;
     this.parser = new FormulaParser();
     this.parser.on("callCellValue", (cellCoord: CellCoordinate, done: any) => {
-      done(self.table.get(cellCoord));
+      const value = self.table.get(cellCoord);
+      done(value);
     });
     this.parser.on(
       "callRangeValue",
@@ -26,23 +27,7 @@ export class TableParser {
         endCellCoord: CellCoordinate,
         done: any
       ) => {
-        let fragment = [];
-        for (
-          var row = startCellCoord.row.index;
-          row <= endCellCoord.row.index;
-          row++
-        ) {
-          var colFragment = [];
-
-          for (
-            var col = startCellCoord.column.index;
-            col <= endCellCoord.column.index;
-            col++
-          ) {
-            colFragment.push(self.table.getat(row, col));
-          }
-          fragment.push(colFragment);
-        }
+        const fragment = self.table.getfragment(startCellCoord, endCellCoord);
         done(fragment);
       }
     );

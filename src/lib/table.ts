@@ -36,10 +36,11 @@ export class MTRow {
       let cvalue = parts[i];
       let frm = null;
       let frmpx = null;
+      FORMULA_REGEXP.lastIndex = 0; // reset if reuse
       // find formula
       const rx = FORMULA_REGEXP.exec(parts[i]);
       if (rx && rx.length == 5) {
-        frm = rx[3];
+        frm = rx[3].trim();
         cvalue = "";
         // Only one value present is taken into consideration
         if (rx[1].trim() != "") {
@@ -126,11 +127,43 @@ export class MTTable {
     return row.cells[colidx];
   }
 
-  // Get data from a given coordinate
-  get(coord: CellCoordinate): string {
+  // Find cell with a given label and return CellCoordinate.
+  cellCoordinate(id: string): CellCoordinate {
+    const coords = extractLabel(id) as Coordinate[];
+    return { row: coords[0], column: coords[1], label: id } as CellCoordinate;
+  }
+
+  // Get data from a given coordinate, convert to number
+  get(coord: CellCoordinate): number {
     const rowidx = coord.row.index;
     const colidx = coord.column.index;
-    return this.getat(rowidx, colidx);
+    const value = Number.parseFloat(this.getat(rowidx, colidx));
+    return value;
+  }
+
+  getfragment(
+    startCellCoord: CellCoordinate,
+    endCellCoord: CellCoordinate
+  ): string[] {
+    let fragment = [];
+    for (
+      var row = startCellCoord.row.index;
+      row <= endCellCoord.row.index;
+      row++
+    ) {
+      var colFragment = [];
+
+      for (
+        var col = startCellCoord.column.index;
+        col <= endCellCoord.column.index;
+        col++
+      ) {
+        const value = Number.parseFloat(this.getat(row, col));
+        colFragment.push(value);
+      }
+      fragment.push(colFragment);
+    }
+    return fragment;
   }
 
   getat(row: number, column: number): string {
