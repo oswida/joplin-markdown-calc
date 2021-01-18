@@ -27,7 +27,6 @@ joplin.plugins.register({
       // Execute calculations
       calc.execute(body_lines);
       // update note body
-      await joplin.commands.execute("textSelectAll");
       await joplin.commands.execute("editor.setText", body_lines.join("\n"));
     }
 
