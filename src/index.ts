@@ -41,6 +41,7 @@ joplin.plugins.register({
     });
 
     joplin.views.toolbarButtons.create(
+      "markdownCalculateBtn",
       "markdownCalculate",
       ToolbarButtonLocation.EditorToolbar
     );

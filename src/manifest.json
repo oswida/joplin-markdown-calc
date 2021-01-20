@@ -1,8 +1,11 @@
 {
-	"manifest_version": 1,
-	"name": "markdown-calc",
-	"description": "Plugin for automatic calculations of markdown table formulas.",
-	"version": "1.0.0",
-	"author": "Oskar Świda",
-	"homepage_url": ""
+  "id": "osw.joplin.markdowncalc",
+  "app_min_version": "1.7",
+  "repository_url": "https://github.com/oswida/joplin-markdown-calc",
+  "name": "markdown-calc",
+  "description": "Plugin for automatic calculations of markdown table formulas.",
+  "version": "1.0.0",
+  "author": "Oskar Świda",
+  "homepage_url": "https://github.com/oswida/joplin-markdown-calc",
+  "keywords": ["markdown", "orgmode", "calc", "table"]
 }
