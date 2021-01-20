@@ -1,6 +1,7 @@
 {
+  "manifest_version": 1,
   "id": "osw.joplin.markdowncalc",
-  "app_min_version": "1.7",
+  "app_min_version": "1.6.6",
   "repository_url": "https://github.com/oswida/joplin-markdown-calc",
   "name": "markdown-calc",
   "description": "Plugin for automatic calculations of markdown table formulas.",
