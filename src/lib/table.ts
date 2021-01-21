@@ -100,11 +100,11 @@ export class MTTable {
     if (rx && rx.length == 3) {
       const flist = rx[2].split(FORMULA_SEP);
       flist.forEach((f: string) => {
-        const parts = f.split("=");
+        const parts = f.trim().split("=");
         if (parts && parts.length == 2) {
-          const cell = this.findCell(parts[0]);
+          const cell = this.findCell(parts[0].trim());
           if (cell) {
-            cell.formula = parts[1];
+            cell.formula = parts[1].trim();
             cell.formulaPrefix = null;
           }
         }
@@ -159,7 +159,9 @@ export class MTTable {
         col++
       ) {
         const value = Number.parseFloat(this.getat(row, col));
-        colFragment.push(value);
+        if (!Number.isNaN(value)) {
+          colFragment.push(value);
+        }
       }
       fragment.push(colFragment);
     }

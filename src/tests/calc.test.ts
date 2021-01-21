@@ -60,6 +60,32 @@ const SAMPLE7 = `|A|B|C|
 <!--TBLFM C3=SUM(A1:A3);B3=AVERAGE(A1:B3) -->
 `;
 
+const SAMPLE8 = `
+|A|B|C|
+|--|--|--|
+|1|2|3|
+|4|5|6|
+|7|8|9|
+<!--TBLFM C3 =A1+ A2; B2= A2*C1 -->
+`;
+
+const SAMPLE9 = `
+|A|B|C|
+|--|--|--|
+|aa|2||
+|4|5|6|
+|7|8|9|
+<!--TBLFM C3=A1+A2; B2=A2*C1 -->
+`;
+
+const SAMPLE10 = `|A|B|C|
+|--|--|--|
+|aaa|2|3|
+|4||6|
+|7|8|9|
+<!--TBLFM C3=SUM(A1:A3);B3=AVERAGE(B1:B3) -->
+`;
+
 const calcSample = (text: string): [TableCalculator, string[]] => {
   const md = new MarkdownIt({ html: true });
   const data = md.parse(text, null);
@@ -159,4 +185,35 @@ test("Formula functions and ranges", () => {
   expect(c3.value).toBe("12");
   const b3 = table.findCell("B3");
   expect(b3.value).toBe("4.5");
+});
+
+test("Table formulas with spaces", () => {
+  const [calc, body_lines] = calcSample(SAMPLE8);
+
+  const table = new MTTable(3, 5);
+  table.parse(body_lines);
+  expect(table.rows.length).toBe(3);
+  expect(table.findCell("B2").value).toBe("12");
+  expect(table.findCell("C3").value).toBe("5");
+});
+
+test("Table cells with bad numbers", () => {
+  const [calc, body_lines] = calcSample(SAMPLE9);
+
+  const table = new MTTable(3, 5);
+  table.parse(body_lines);
+  expect(table.rows.length).toBe(3);
+  expect(table.findCell("B2").value).toBe('"#VALUE!"');
+  expect(table.findCell("C3").value).toBe('"#VALUE!"');
+});
+
+test("Formula functions and ranges with bad values", () => {
+  const [calc, body_lines] = calcSample(SAMPLE10);
+  const table = new MTTable(2, 4);
+  table.parse(body_lines);
+
+  const c3 = table.findCell("C3");
+  expect(c3.value).toBe("11");
+  const b3 = table.findCell("B3");
+  expect(b3.value).toBe("5");
 });
