@@ -36,9 +36,9 @@ export class TableParser {
   parse(frm: string): string {
     let res: CalcResult = this.parser.parse(frm);
     if (res.error == null) {
-      return JSON.stringify(res.result);
+      return String(res.result);
     } else {
-      return JSON.stringify(res.error);
+      return String(res.error);
     }
   }
 }
