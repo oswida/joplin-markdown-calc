@@ -203,8 +203,8 @@ test("Table cells with bad numbers", () => {
   const table = new MTTable(3, 5);
   table.parse(body_lines);
   expect(table.rows.length).toBe(3);
-  expect(table.findCell("B2").value).toBe('"#VALUE!"');
-  expect(table.findCell("C3").value).toBe('"#VALUE!"');
+  expect(table.findCell("B2").value).toBe("#VALUE!");
+  expect(table.findCell("C3").value).toBe("#VALUE!");
 });
 
 test("Formula functions and ranges with bad values", () => {
