@@ -134,11 +134,15 @@ export class MTTable {
   }
 
   // Get data from a given coordinate, convert to number
-  get(coord: CellCoordinate): number {
+  get(coord: CellCoordinate): number | string {
     const rowidx = coord.row.index;
     const colidx = coord.column.index;
-    const value = Number.parseFloat(this.getat(rowidx, colidx));
-    return value;
+    const strval = this.getat(rowidx, colidx);
+    const value = Number.parseFloat(strval);
+    if (!Number.isNaN(value)) {
+      return value;
+    }
+    return strval;
   }
 
   getfragment(
@@ -158,9 +162,12 @@ export class MTTable {
         col <= endCellCoord.column.index;
         col++
       ) {
-        const value = Number.parseFloat(this.getat(row, col));
+        const strval = this.getat(row, col);
+        const value = Number.parseFloat(strval);
         if (!Number.isNaN(value)) {
           colFragment.push(value);
+        } else {
+          colFragment.push(strval);
         }
       }
       fragment.push(colFragment);

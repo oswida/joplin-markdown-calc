@@ -43,7 +43,7 @@ The plugin registers `markdownCalculate` command and adds it to the editor toolb
 ## Important Notes
 1. WYSIWYG editor removes HTML comments, so you will loose formula definitions.
 2. Table values are updated using internal `editor.setText` command, so you will be unable to undo changes.
-3. Cell values are converted to float numbers.
+3. Cell values are converted to float numbers. If conversion fail, the cell value will be returned as a string. However, you need to remember that strings like `7/18/2011 7:45:00 AM` will be properly parsed as float `7`. To use them as strings, they have to be written in double quote `"7/18/2011 7:45:00 AM"`. 
 
 ## Building the plugin
 
