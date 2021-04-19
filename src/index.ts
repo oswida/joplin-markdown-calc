@@ -13,7 +13,7 @@ joplin.plugins.register({
         return;
       }
       const md = new MarkdownIt({ html: true });
-      const data = md.parse(note.body, null);
+      const data = md.parse(note.body, {});
       const body_lines = (note.body as string).split("\n");
       const calc = new TableCalculator();
       for (let i = 0; i < data.length; i++) {
