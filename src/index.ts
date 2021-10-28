@@ -27,7 +27,10 @@ joplin.plugins.register({
       // Execute calculations
       calc.execute(body_lines);
       // update note body
-      await joplin.commands.execute("editor.setText", body_lines.join("\n"));
+      const newBody = body_lines.join("\n");
+      await joplin.commands.execute("editor.setText", newBody);
+      await joplin.data.put(['notes', note.id], null, { body: newBody });
+      await joplin.commands.execute('editor.focus');
     }
 
     // Register new command
