@@ -1,3 +1,5 @@
+# CHANGELOG
+
 1.0.1
 
 - FIX: bad parsing when formula has spaces inside
@@ -17,3 +19,7 @@
 1.0.4
 
 - FIX: computed values are lost after changing note focus
+
+1.0.5
+
+- FEAT: parse tables inside code blocks
