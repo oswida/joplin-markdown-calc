@@ -1,7 +1,6 @@
+import { TableCalculator } from "../lib/calc";
 import { MTTable } from "../lib/table";
 import MarkdownIt = require("markdown-it");
-import { TableCalculator } from "../lib/calc";
-import { TableParser } from "src/lib/parser";
 
 const SAMPLE3 = `|A|B|C|
 |--|--|--|
@@ -84,6 +83,22 @@ const SAMPLE10 = `|A|B|C|
 |4||6|
 |7|8|9|
 <!--TBLFM C3=SUM(A1:A3);B3=AVERAGE(B1:B3) -->
+`;
+
+const SAMPLE11 = `
+Table inside code block
+
+\`\`\`
+code data...
+|A|B|C|
+|--|--|--|
+|12|2|5|
+|4|5|6|
+|7|8|9|
+<!--TBLFM C3=A1+A2; B2=A2*C1 -->
+another code data...
+\`\`\`
+other....
 `;
 
 const calcSample = (text: string): [TableCalculator, string[]] => {
@@ -216,4 +231,12 @@ test("Formula functions and ranges with bad values", () => {
   expect(c3.value).toBe("11");
   const b3 = table.findCell("B3");
   expect(b3.value).toBe("5");
+});
+
+test("Calculate formulas inside code block", () => {
+  const calc = new TableCalculator();
+  const body_lines = calc.prepareTables(SAMPLE11);
+  calc.execute(body_lines);
+  expect(body_lines[8]).toBe("|4|20|6|");
+  expect(body_lines[9]).toBe("|7|8|16|");
 });
