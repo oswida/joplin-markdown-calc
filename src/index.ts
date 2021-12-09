@@ -1,5 +1,5 @@
 import joplin from "api";
-import { ToolbarButtonLocation } from "api/types";
+import { ContentScriptType, ToolbarButtonLocation } from "api/types";
 import { TableCalculator } from "./lib/calc";
 
 // Register plugin
@@ -22,6 +22,13 @@ joplin.plugins.register({
       await joplin.data.put(["notes", note.id], null, { body: newBody });
       await joplin.commands.execute("editor.focus");
     }
+
+    // Register content script
+    // await joplin.contentScripts.register(
+    //   ContentScriptType.MarkdownItPlugin,
+    //   "markdown-calc",
+    //   "./lib/contentScript.js"
+    // );
 
     // Register new command
     await joplin.commands.register({
