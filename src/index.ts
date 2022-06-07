@@ -24,11 +24,11 @@ joplin.plugins.register({
     }
 
     // Register content script
-    // await joplin.contentScripts.register(
-    //   ContentScriptType.MarkdownItPlugin,
-    //   "markdown-calc",
-    //   "./lib/contentScript.js"
-    // );
+    await joplin.contentScripts.register(
+      ContentScriptType.MarkdownItPlugin,
+      "markdown-calc",
+      "./lib/contentScript.js"
+    );
 
     // Register new command
     await joplin.commands.register({
