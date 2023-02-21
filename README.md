@@ -1,5 +1,7 @@
 # Joplin Markdown table calculations plugin
 
+## NOTE: unfortunately, I'm not able to maintain this project anymore. There are couple of things which should be done (like moving it to newer formula library or better integration with the current Joplin API) but I won't be able to do it in any reasonable future. 
+
 [Joplin editor](https://github.com/laurent22/joplin) plugin for making calculations in markdown tables. Inspired by an Emacs Org mode feature which allows to make TBLFM comments under the table and perform calculations.
 
 > IMPORTANT: This plugin is not a spreadsheet emulator and I'm not able to mimic whole spreadsheet functionality. If you need specific behaviours, please use your favourite spreadsheet package instead.
